@@ -1,46 +1,40 @@
-package com.myname.mymodid;
+package com.brightpessimist.imex;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import com.brightpessimist.imex.command.DebugComand;
+import com.brightpessimist.imex.config.Config;
+import com.brightpessimist.imex.config.TradingConfig;
 
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 
-@Mod(modid = MyMod.MODID, version = Tags.VERSION, name = "MyMod", acceptedMinecraftVersions = "[1.7.10]")
-public class MyMod {
+public class CommonProxy {
 
-    public static final String MODID = "mymodid";
-    public static final Logger LOG = LogManager.getLogger(MODID);
+    public void add_chat_message(String message) {
+        return;
+    }
 
-    @SidedProxy(clientSide = "com.myname.mymodid.ClientProxy", serverSide = "com.myname.mymodid.CommonProxy")
-    public static CommonProxy proxy;
-
-    @Mod.EventHandler
     // preInit "Run before anything else. Read your config, create blocks, items, etc, and register them with the
     // GameRegistry." (Remove if not needed)
     public void preInit(FMLPreInitializationEvent event) {
-        proxy.preInit(event);
+        Config.synchronizeConfiguration(event.getModConfigurationDirectory());
+        TradingConfig.init(event.getModConfigurationDirectory());
+
+        ImportExport.LOG.info(Config.greeting);
+        ImportExport.LOG.info("I am MyMod at version " + 1);
     }
 
-    @Mod.EventHandler
     // load "Do your mod setup. Build whatever data structures you care about. Register recipes." (Remove if not needed)
     public void init(FMLInitializationEvent event) {
-        proxy.init(event);
+        // FMLCommonHandler.instance().bus().register(new MarketCache.Ticker());
     }
 
-    @Mod.EventHandler
     // postInit "Handle interaction with other mods, complete your setup based on this." (Remove if not needed)
-    public void postInit(FMLPostInitializationEvent event) {
-        proxy.postInit(event);
-    }
+    public void postInit(FMLPostInitializationEvent event) {}
 
-    @Mod.EventHandler
     // register server commands in this event handler (Remove if not needed)
     public void serverStarting(FMLServerStartingEvent event) {
-        proxy.serverStarting(event);
+        event.registerServerCommand(new DebugComand());
     }
 }

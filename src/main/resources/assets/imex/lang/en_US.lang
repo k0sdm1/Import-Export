@@ -1,0 +1,8 @@
+GT5U.gui.text.recipe_result.imex_insufficient_funds=Insufficient credits
+GT5U.gui.text.recipe_result.imex_no_credit_card=No credit card
+GT5U.gui.text.recipe_result.imex_credit_card_owner_dismatch=Credit card doesn't belong to the may owner
+GT5U.gui.text.recipe_result.imex_credit_card_not_initialized=Credit card was not initialized
+
+item.contract.name=Import Contract
+item.creditcard.name=Credit Card
+item.pricelist.name=Price List
