@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
+import com.brightpessimist.imex.ImportExport;
+import com.cleanroommc.modularui.drawable.UITexture;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -32,7 +34,9 @@ public class CreditCard extends Item implements IGuiHolder<PlayerInventoryGuiDat
 
     @Override
     public ModularPanel buildUI(PlayerInventoryGuiData data, PanelSyncManager syncManager, UISettings settings) {
-        ModularPanel panel = new ModularPanel("imex_creditcard").size(142, 90);
+        ModularPanel panel = new ModularPanel("imex_creditcard").size(142, 90).background(
+            UITexture.builder().location(ImportExport.MODID, "gui/creditcard.png").imageSize(142, 90).adaptable(1).canApplyTheme().build()
+        );
         final UUID playerUUID = data.getPlayer()
             .getUniqueID();
 
@@ -58,8 +62,9 @@ public class CreditCard extends Item implements IGuiHolder<PlayerInventoryGuiDat
                     // .toString();
                     // })
                     balanceSync::getStringValue)
+                    .color(0xFFFFFFFF)
                     .asWidget()
-                    .center());
+                    .center().paddingTop(20));
         return panel;
     }
 
