@@ -5,6 +5,7 @@ import java.util.Random;
 import java.util.UUID;
 
 import com.brightpessimist.imex.ImportExport;
+import com.brightpessimist.imex.util.BigNumberFormat;
 import com.cleanroommc.modularui.drawable.UITexture;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -42,8 +43,7 @@ public class CreditCard extends Item implements IGuiHolder<PlayerInventoryGuiDat
 
         // 2. Create a StringSyncHandler to bridge the Server and Client
         StringSyncValue balanceSync = new StringSyncValue(
-            () -> TradingCurrencyManager.getBalance(playerUUID)
-                .toString(),
+            () -> BigNumberFormat.format(TradingCurrencyManager.getBalance(playerUUID)),
             (newVisible) -> {});
 
         // 3. Register the sync handler with the PanelSyncManager

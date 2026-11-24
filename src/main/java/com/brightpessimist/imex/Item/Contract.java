@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
+import com.brightpessimist.imex.ImportExport;
+import com.cleanroommc.modularui.drawable.UITexture;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -371,10 +373,12 @@ public class Contract extends Item implements IGuiHolder<PlayerInventoryGuiData>
         })
             .asWidget());
 
-        column.child(totalFlow);
+        // column.child(totalFlow);
 
-        ModularPanel panel = new ModularPanel("contract").size(250, 320);
-        panel.child(column);
+        ModularPanel panel = new ModularPanel("contract").size(250, 320).background(
+            UITexture.builder().location(ImportExport.MODID, "gui/contract.png").imageSize(142, 90).adaptable(1).canApplyTheme().build()
+        );
+        panel.child(column).child(totalFlow.bottom(5).left(5));
         syncManager.addCloseListener(player -> save.run());
         return panel;
     }

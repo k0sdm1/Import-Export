@@ -71,6 +71,17 @@ public class DebugComand extends CommandBase {
     }
 
     @Override
+    public int getRequiredPermissionLevel()
+    {
+        return 0;
+    }
+
+    @Override
+    public boolean canCommandSenderUseCommand(ICommandSender sender) {
+        return true;
+    }
+
+    @Override
     public List<String> addTabCompletionOptions(ICommandSender sender, String[] args) {
         if (args.length == 0) {
             return Collections.emptyList();
